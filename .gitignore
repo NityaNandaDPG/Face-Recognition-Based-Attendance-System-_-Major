@@ -1,0 +1,6 @@
+/data/data_dlib/dlib_face_recognition_resnet_model_v1.dat
+/data/data_dlib/shape_predictor_68_face_landmarks.dat
+/data/data_faces_from_camera/*
+/attendance.db
+/data/features_all.csv
+/README.md
