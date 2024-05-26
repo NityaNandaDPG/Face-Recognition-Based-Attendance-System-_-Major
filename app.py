@@ -66,20 +66,21 @@ def get_average_attendance(course, semester, subject):
     return data
 
 # Route to handle the request for average attendance
-@app.route('/overall',methods=['GET'])
-def index():
-    return render_template('overall_attendance.html', selected_date='', no_data=False)
 
 
-@app.route('/overall_attendance',methods=['POST'])
+@app.route('/overall_attendance', methods=['GET', 'POST'])
 def average_attendance():
-    course = request.form.get('course')
-    semester = request.form.get('semester')
-    subject = request.form.get('subject')
+    if request.method == 'POST':
+        course = request.form.get('course')
+        semester = request.form.get('semester')
+        subject = request.form.get('subject')
 
-    avg_attendance_data = get_average_attendance(course, semester, subject)
-    # avg_attendance_data = get_average_attendance()
-    return render_template('average_attendance.html', avg_attendance_data=avg_attendance_data)
+        avg_attendance_data = get_average_attendance(course, semester, subject)
+        return render_template('overall_attendance.html', avg_attendance_data=avg_attendance_data)
+    
+    # For GET request, render the form
+    return render_template('overall_attendance.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

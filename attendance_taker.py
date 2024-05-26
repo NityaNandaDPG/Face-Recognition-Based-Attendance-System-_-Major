@@ -171,7 +171,7 @@ class Face_Recognizer:
     #  cv2 window / putText on cv2 window
     def draw_note(self, img_rd):
         #  / Add some info on windows
-        cv2.putText(img_rd, "Face Recognizer with Deep Learning", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "Face Recognizer for Attendance", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
         cv2.putText(img_rd, "Frame:  " + str(self.frame_cnt), (20, 100), self.font, 0.8, (0, 255, 0), 1,cv2.LINE_AA)
         cv2.putText(img_rd, "FPS:    " + str(self.fps.__round__(2)), (20, 130), self.font, 0.8, (0, 255, 0), 1,cv2.LINE_AA)
         cv2.putText(img_rd, "Faces:  " + str(self.current_frame_face_cnt), (20, 160), self.font, 0.8, (0, 255, 0), 1,cv2.LINE_AA)
@@ -410,13 +410,13 @@ class Face_Recognizer:
         ]
         self.subject_dropdown.grid(row=4, column=1, padx=10, pady=10)
 
-        tk.Label(self.root, text="Select Academic Year:").grid(row=5, column=0, padx=10, pady=10)
-        self.academic_year_var = tk.StringVar()
-        self.academic_year_dropdown = ttk.Combobox(self.root, textvariable=self.academic_year_var)
-        self.academic_year_dropdown['values'] = ["2021-22", "2022-23", "2023-24", "2024-25"]
-        self.academic_year_dropdown.grid(row=5, column=1, padx=10, pady=10)
+        # tk.Label(self.root, text="Select Academic Year:").grid(row=5, column=0, padx=10, pady=10)
+        # self.academic_year_var = tk.StringVar()
+        # self.academic_year_dropdown = ttk.Combobox(self.root, textvariable=self.academic_year_var)
+        # self.academic_year_dropdown['values'] = ["2021-22", "2022-23", "2023-24", "2024-25"]
+        # self.academic_year_dropdown.grid(row=5, column=1, padx=10, pady=10)
 
-        tk.Button(self.root, text="Submit", command=self.on_submit).grid(row=6, columnspan=2, pady=20)
+        tk.Button(self.root, text="Submit", command=self.on_submit).grid(row=5, columnspan=2, pady=20)
 
         self.root.mainloop()
 
@@ -424,9 +424,9 @@ class Face_Recognizer:
         self.course = self.course_var.get()
         self.semester = self.semester_var.get()
         self.subject = self.subject_var.get()
-        self.academic_year = self.academic_year_var.get()
+        # self.academic_year = self.academic_year_var.get()
 
-        if not self.course or not self.semester or not self.subject or not self.academic_year:
+        if not self.course or not self.semester or not self.subject:
             messagebox.showerror("Error", "All fields are required!")
         else:
             self.root.destroy()
