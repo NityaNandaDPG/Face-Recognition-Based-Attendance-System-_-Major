@@ -13,13 +13,22 @@ def index():
 @app.route('/attendance', methods=['POST'])
 def attendance():
     selected_date = request.form.get('selected_date')
+    course = request.form.get('course')
+    semester = request.form.get('semester')
+    subject = request.form.get('subject')
+    
     selected_date_obj = datetime.strptime(selected_date, '%Y-%m-%d')
     formatted_date = selected_date_obj.strftime('%Y-%m-%d')
 
     conn = sqlite3.connect('attendance.db')
     cursor = conn.cursor()
 
-    cursor.execute("SELECT name, entrytime, exittime FROM attendance WHERE date = ?", (formatted_date,))
+    # cursor.execute("SELECT name, entrytime, exittime FROM attendance WHERE date = ?", (formatted_date,))
+    cursor.execute("""
+        SELECT name, entrytime, exittime 
+        FROM attendance 
+        WHERE date = ? AND course = ? AND semester = ? AND subject = ?
+    """, (formatted_date, course, semester, subject))
     attendance_data = cursor.fetchall()
 
     # Calculate attendance eligibility and add it to the tuple

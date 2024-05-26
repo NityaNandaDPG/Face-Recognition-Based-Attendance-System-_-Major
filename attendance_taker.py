@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS {table_name} (
     firsttime TEXT, 
     date DATE, 
     roll TEXT,
+    course TEXT,
     semester TEXT,
     subject TEXT,
     academic_year TEXT,
@@ -217,8 +218,8 @@ class Face_Recognizer:
                     # Insert the first time entry
                     # cursor.execute("INSERT INTO attendance (name, entrytime, exittime, firsttime, date, semester, subject, academic_year) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     #            (name, current_time, current_time, current_time, current_date, self.semester, self.subject, self.academic_year))
-                    cursor.execute("INSERT INTO attendance (name, entrytime, exittime, firsttime, date, roll, semester, subject, academic_year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                (name, current_time, current_time, current_time, current_date, roll, semester, self.subject, self.academic_year))
+                    cursor.execute("INSERT INTO attendance (name, entrytime, exittime, firsttime, date, roll,course, semester, subject, academic_year) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?)",
+                                (name, current_time, current_time, current_time, current_date, roll, course,semester, self.subject, self.academic_year))
                     # cursor.execute("INSERT INTO attendance (name, entrytime, exittime, firsttime, date) VALUES (?, ?, ?, ?, ?)", (name, current_time, current_time, current_time, current_date))
                     conn.commit()
                     print(f"{name} marked as present for {current_date} at {current_time}")
@@ -385,7 +386,28 @@ class Face_Recognizer:
         tk.Label(self.root, text="Select Subject:").grid(row=4, column=0, padx=10, pady=10)
         self.subject_var = tk.StringVar()
         self.subject_dropdown = ttk.Combobox(self.root, textvariable=self.subject_var)
-        self.subject_dropdown['values'] = ["Python", "Java", "Data Science", "Artificial Intelligence","Computer Network"]
+        # self.subject_dropdown['values'] = ["Python", "Java", "Data Science", "Artificial Intelligence","Computer Network"]
+        self.subject_dropdown['values'] = [
+            "Programming Concept with Python",
+            "Relational Database Management System",
+            "Computer Organization and Architecture",
+            "Discrete Mathematics",
+            "Environment and Ecology",
+            "Data Structure with Python",
+            "Operating System",
+            "Object Oriented Programming with JAVA",
+            "Networking",
+            "Numerical and Statistical Analysis",
+            "Soft Skill and Interpersonal Communication",
+            "Software Engineering using UML",
+            "Artificial Intelligence",
+            "Design and Analysis of Algorithm",
+            "Basic Data Science",
+            "Introduction to Big Data Analytics",
+            "Graph Theory",
+            "Machine Learning",
+            "Soft Skill and Interpersonal Communication"
+        ]
         self.subject_dropdown.grid(row=4, column=1, padx=10, pady=10)
 
         tk.Label(self.root, text="Select Academic Year:").grid(row=5, column=0, padx=10, pady=10)
