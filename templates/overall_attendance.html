@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance Tracker Sheet</title>
+    <title>Overall Attendance Tracker Sheet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -40,7 +40,7 @@
             font-weight: bold;
             flex: 1;
         }
-        input[type="date"], select {
+        select {
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -62,24 +62,18 @@
         button[type="submit"]:hover {
             background-color: #218838;
         }
-        table{
-            margin:auto;
+        table {
+            margin: auto;
         }
     </style>
 </head>
 <body>
     <div class="jumbotron text-center">
-        <h1 class="display-4">Attendance Tracker Sheet</h1>
+        <h1 class="display-4">Overall Attendance Tracker Sheet</h1>
     </div>
     <hr>
 
-    <form action="/attendance" method="POST" id="attn-form">
-        
-        <div class="form-group">
-            <label for="selected_date">Select Date: </label>
-            <input type="date" id="selected_date" name="selected_date" required value="{{ selected_date }}" max="{{ max_date }}">
-        </div>
-
+    <form action="/overall_attendance" method="POST" id="overall-attn-form">
         <div class="form-group">
             <label for="course">Course: </label>
             <select id="course" name="course" required>
@@ -134,45 +128,31 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-outline-success">Show attendance</button>
+        <button type="submit" class="btn btn-outline-success">Show overall attendance</button>
     </form>
 
     <div class="container mt-5">
-        {% if no_data %}
-        <div class="alert alert-warning" role="alert">
-            No attendance data available for the selected date.
-        </div>
-        {% endif %}
-        
-        <h2>Attendance Data Table</h2>
+        <h2>Average Attendance Data</h2>
         <table class="table">
             <thead class="text-center">
-
                 <tr>
                     <th scope="col">Name</th>
-                    <th scope="col">Entry Time</th>
-                    <th scope="col">Exit Time</th>
-                    <th scope="col">Attendance Eligible</th> <!-- New Column -->
+                    <th scope="col">Total Days</th>
+                    <th scope="col">Average Attendance (%)</th>
                 </tr>
             </thead>
             <tbody class="text-center">
-                {% for data in attendance_data %}
+                {% for data in avg_attendance_data %}
                 <tr>
                     <td>{{ data[0] }}</td>
                     <td>{{ data[1] }}</td>
-                    <td>{{ data[2] }}</td>
-                    <td>{% if data[3] >= 1 %}Yes{% else %}No{% endif %}</td> <!-- Calculate Eligibility -->
+                    <td>{{ data[2] }}%</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="/overall" class="btn btn-outline-primary">Show Average Attendance</a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script>
-        // Set the max date to today's date
-        document.getElementById('selected_date').max = new Date().toISOString().split("T")[0];
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5nsC8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>
